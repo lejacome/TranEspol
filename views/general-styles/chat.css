@@ -1,0 +1,250 @@
+@media(min-width: 500px) {
+				#chat{
+					background-color: #eee;
+					margin: 20px auto 0;
+					width: 280px;
+				}
+				#chat #header-chat{
+					background-color: #555;
+					color: white;
+					padding: 10px;
+					text-align: center;
+					text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+				}
+				#caja-mensaje{
+					background-color: #A8DCF7;
+					margin: 0 auto;
+					padding: 10px;
+					width: 280px;
+				}
+				#caja-mensaje input{
+					border: solid 1px #4193BF;
+					outline: none;
+					padding: 10px;
+					width: 180px;
+				}
+				#caja-mensaje button{
+					border: 0;
+					background-color: #4193BF;
+					color: white;
+					font-size: 16px;
+					padding: 8px;
+					width: 50px;
+				}
+				#chat #mensajes{
+					padding: 10px;
+					height: 280px;
+					width: 280px;
+					overflow: hidden;
+					overflow-y: scroll 
+				}
+
+				#chat #mensajes .mensaje-autor{
+					margin-bottom: 50px;
+
+				}
+				#chat #mensajes .mensaje-autor img, #chat #mensajes .mensaje-amigo img{
+					display: inline-block;
+					vertical-align: top;
+				}
+				#chat #mensajes .mensaje-autor .contenido{
+					background-color: white;
+					border-radius: 5px;
+					box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+					display: inline-block;
+					font-size: 13px;
+					padding: 15px;
+					vertical-align: top;
+					width: 280px;
+				}
+				#chat #mensajes .mensaje-autor .fecha{
+					color: #777;
+					font-style: italic;
+					font-size: 13px;
+					text-align: right;
+					margin-right: 35px;
+					margin-top: 10px;
+				}
+				#chat #mensajes .mensaje-autor .flecha-izquierda{
+					display: inline-block;
+					margin-right: -6px;
+					margin-top: 10px;
+					width: 0; 
+					height: 0; 
+					border-top: 0px solid transparent;
+					border-bottom: 15px solid transparent;
+					border-right: 15px solid white;
+				}
+				#chat #mensajes .mensaje-amigo{
+					margin-bottom: 50px;
+				}
+				#chat #mensajes .mensaje-amigo .contenido{
+					background-color: #3990BF;
+					border-radius: 5px;
+					color: white;
+					display: inline-block;
+					font-size: 13px;
+					padding: 15px;
+					vertical-align: top;
+					width: 280px;
+				}
+				#chat #mensajes .mensaje-amigo .flecha-derecha{
+					display: inline-block;
+					margin-left: -6px;
+					margin-top: 10px;
+					width: 0; 
+					height: 0; 
+					border-top: 0px solid transparent;
+					border-bottom: 15px solid transparent;
+					border-left: 15px solid #3990BF;
+				}
+				#chat #mensajes .mensaje-amigo img, #chat #mensajes .mensaje-autor img{
+					border-radius: 5px;
+				}
+				#chat #mensajes .mensaje-amigo .fecha{
+					color: #777;
+					font-style: italic;
+					font-size: 13px;
+					text-align: left;
+					
+					margin-top: 10px;
+				}
+				.content{
+					 position:absolute;
+					 bottom: 0;
+					 right:0;
+					 width:290px;
+					 z-index:50;
+				}
+				.fotoChat{
+					 width:60px;
+				     height:60px;
+				}
+				
+	}
+	@media(max-width: 400px) {
+				#chat{
+					background-color: #eee;
+					margin: 20px auto 0;
+					width: 180px;
+				}
+				#chat #header-chat{
+					background-color: #555;
+					color: white;
+					padding: 10px;
+					text-align: center;
+					text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+				}
+				#caja-mensaje{
+					background-color: #A8DCF7;
+					margin: 0 auto;
+					padding: 10px;
+					width: 180px;
+				}
+				#caja-mensaje input{
+					border: solid 1px #4193BF;
+					outline: none;
+					padding: 10px;
+					height: 20px;
+					width: 110px;
+				}
+				#caja-mensaje button{
+					border: 0;
+					background-color: #4193BF;
+					color: white;
+					font-size: 1px;
+					padding: 2px;
+					height: 30px;
+					width: 20px;
+				}
+				#chat #mensajes{
+					padding: 10px;
+					height: 180px;
+					width: 180px;
+					overflow: hidden;
+					overflow-y: scroll 
+				}
+
+				#chat #mensajes .mensaje-autor{
+					margin-bottom: 50px;
+
+				}
+				#chat #mensajes .mensaje-autor img, #chat #mensajes .mensaje-amigo img{
+					display: inline-block;
+					vertical-align: top;
+				}
+				#chat #mensajes .mensaje-autor .contenido{
+					background-color: white;
+					border-radius: 5px;
+					box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+					display: inline-block;
+					font-size: 13px;
+					padding: 15px;
+					vertical-align: top;
+					width: 180px;
+				}
+				#chat #mensajes .mensaje-autor .fecha{
+					color: #777;
+					font-style: italic;
+					font-size: 13px;
+					text-align: right;
+					margin-right: 35px;
+					margin-top: 10px;
+				}
+				#chat #mensajes .mensaje-autor .flecha-izquierda{
+					display: inline-block;
+					margin-right: -6px;
+					margin-top: 10px;
+					width: 0; 
+					height: 0; 
+					border-top: 0px solid transparent;
+					border-bottom: 15px solid transparent;
+					border-right: 15px solid white;
+				}
+				#chat #mensajes .mensaje-amigo{
+					margin-bottom: 50px;
+				}
+				#chat #mensajes .mensaje-amigo .contenido{
+					background-color: #3990BF;
+					border-radius: 5px;
+					color: white;
+					display: inline-block;
+					font-size: 13px;
+					padding: 15px;
+					vertical-align: top;
+					width: 180px;
+				}
+				#chat #mensajes .mensaje-amigo .flecha-derecha{
+					display: inline-block;
+					margin-left: -6px;
+					margin-top: 10px;
+					width: 0; 
+					height: 0; 
+					border-top: 0px solid transparent;
+					border-bottom: 15px solid transparent;
+					border-left: 15px solid #3990BF;
+				}
+				#chat #mensajes .mensaje-amigo img, #chat #mensajes .mensaje-autor img{
+					border-radius: 5px;
+				}
+				#chat #mensajes .mensaje-amigo .fecha{
+					color: #777;
+					font-style: italic;
+					font-size: 13px;
+					text-align: left;
+					
+					margin-top: 10px;
+				}
+				.content{
+					 position:absolute;
+					 bottom: 0;
+					 right:0;
+					 right:0;
+					 width:180px;
+					 z-index:50;
+				}
+				.fotoChat{
+					 width:45px;
+				     height:45px;
+				}
+	}
