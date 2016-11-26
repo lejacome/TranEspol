@@ -1,0 +1,32 @@
+{
+  "name": "TransEspol",
+  "version": "0.0.1",
+  "homepage": "",
+  "authors": [
+    "Grupo1"
+  ],
+  "description": "TransEspol un proyecto para Espol.",
+  "main": "views/index.ejs",
+  "moduleType": [],
+  "license": "GPL V3",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "bootstrap": "~3.3.5",
+    "angular-bootstrap": "~0.14.2",
+    "angular-sanitize": "~1.4.7",
+    "ui-select": "angular-ui-select#~0.13.2",
+    "fullpage.js": "~2.7.4",
+    "ngBootbox": "~0.1.2",
+    "bootbox.js": "bootbox#~4.4.0",
+    "angular-socket-io": "~0.7.0"
+  }
+}
