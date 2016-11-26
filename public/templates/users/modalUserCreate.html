@@ -1,0 +1,59 @@
+<div class="modal-header">
+    <div class="pull-right">
+        <button type="button" class="close pull-right" ng-click="$dismiss()">&times;</button>
+    </div>
+<div>
+    <h3 class="modal-title" ng-if="!item._id">Create User</h3>
+    <h3 class="modal-title" ng-if="item._id">Edit User</h3>
+</div>
+</div>
+<div>
+<form name="myForm" ng-submit="save()" method="POST">
+    <div class="modal-body">
+        <fieldset>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="username" class="bold">Username</label>
+                    <input autofocus required name="username" type="text" class="form-control"
+                    ng-model="item.username">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12" ng-class="{'has-error' : item.password != passwordConfirm }">
+                    <label for="password" class="bold">Password</label>
+                    <input required name="password" type="password" class="form-control" ng-model="item.password">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12 " ng-class="{'has-error' : item.password != passwordConfirm }">
+                    <label for="passwordConfirm" class="bold">Password Confirm</label> <span class="alert-danger"
+                ng-show="item.password != passwordConfirm">Your passwords do not match!</span>
+                <input required name="passwordConfirm" type="password" class="form-control"
+                ng-model="passwordConfirm">
+            </div>
+        </div>
+        <!-- Roles -->
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label for="rol" class="bold">Rol</label>
+                <ui-select required ng-model="item.rol" theme="bootstrap" ng-disabled="disabled" style="min-width: 300px;" title="Select a User Rol">
+                    <ui-select-match placeholder="Select a User Rol">{{$select.selected.rol}}</ui-select-match>
+                    <ui-select-choices repeat="rol.id as rol in labelRol | propsFilter: {rol: $select.search}">
+                      <validate ng-hide="rol.id == 5 && user.rol < 5">
+                        <div ng-bind-html="rol.rol | highlight: $select.search"></div>
+                      </validate>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div class="modal-footer">
+    <button ng-disabled="myForm.$invalid || (item.password != passwordConfirm)"
+    class="btn btn-primary pull-right" type="submit" title="Register">
+    <span ng-if="saving"><i class="fa fa-spinner fa fa-spin"></i>&nbsp;</span>
+    <span>Register</span>
+    </button>
+</div>
+</form>
+</div>

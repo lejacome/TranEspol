@@ -1,0 +1,82 @@
+<div class="modal-header">
+   <div class="pull-right">
+     <button type="button" class="close pull-right" ng-click="$dismiss()">&times;</button>
+   </div>
+<div>
+   <h3 class="modal-title" ng-if="!item._id">Create</h3>
+   <h3 class="modal-title" ng-if="item._id">Edit</h3>
+</div>
+</div>
+<div>
+<form name="myForm" ng-submit="save()" method="POST">
+   <div class="modal-body">
+     <fieldset>
+       <div class="row" ><div class="form-group col-md-12"><label for="idruta" class="bold">IDRUTA</label><input  autofocus required name="idruta" type="text" class="form-control"  ng-model="item.idruta" ></div></div>
+       <div class="row" ><div class="form-group col-md-12"><label for="idbus" class="bold">IDBUS</label><input  autofocus required name="idbus" type="text" class="form-control"  ng-model="item.idbus" ></div></div>
+       <div class="row" ><div class="form-group col-md-12"><label for="idconductor" class="bold">IDCONDUCTOR</label><input  autofocus required name="idconductor" type="text" class="form-control"  ng-model="item.idconductor" ></div></div>
+       <div class="row" ><div class="form-group col-md-12"><label for="fecha" class="bold">FECHA</label><input  autofocus required name="fecha" type="date" class="form-control"  ng-model="item.fecha" value="{{ item.dateAsString1 }}"></div></div>
+       <div class="row" ><div class="form-group col-md-12"><label for="hora" class="bold">HORA</label><input  autofocus required name="hora" type="time" class="form-control"  ng-model="item.hora" value="{{ item.dateAsString2 }}"></div></div>
+       
+       <div class="row">
+         <div class="form-group col-md-12">
+           <label for="bus" class="bold">bus</label>
+           
+           <ui-select required ng-model="item.bus" theme="bootstrap" ng-disabled="disabled" style="min-width: 300px;" title="Select a bus">
+             <ui-select-match placeholder="Select a bus">{{$select.selected.ndisco}} {{$select.selected.marca}} {{$select.selected.placa}} {{$select.selected.modelo}} {{$select.selected.csentados}} {{$select.selected.cparados}} </ui-select-match>
+             <ui-select-choices repeat="item._id as item in bus | propsFilter: {ndisco: $select.search,marca: $select.search,placa: $select.search,modelo: $select.search,csentados: $select.search,cparados: $select.search,}">
+               <div ng-bind-html="item.ndisco | highlight: $select.search"></div>
+               <div ng-bind-html="item.marca | highlight: $select.search"></div>
+               <div ng-bind-html="item.placa | highlight: $select.search"></div>
+               <div ng-bind-html="item.modelo | highlight: $select.search"></div>
+               <div ng-bind-html="item.csentados | highlight: $select.search"></div>
+               <div ng-bind-html="item.cparados | highlight: $select.search"></div>
+             </ui-select-choices>
+           </ui-select>
+         </div>
+       </div>
+       <div class="row">
+         <div class="form-group col-md-12">
+           <label for="conductors" class="bold">conductors</label>
+           
+           <ui-select required ng-model="item.conductors" theme="bootstrap" ng-disabled="disabled" style="min-width: 300px;" title="Select a conductors">
+             <ui-select-match placeholder="Select a conductors">{{$select.selected.tipo}} {{$select.selected.nombre}} </ui-select-match>
+             <ui-select-choices repeat="item._id as item in conductors | propsFilter: {tipo: $select.search,nombre: $select.search,}">
+               <div ng-bind-html="item.tipo | highlight: $select.search"></div>
+               <div ng-bind-html="item.nombre | highlight: $select.search"></div>
+             </ui-select-choices>
+           </ui-select>
+         </div>
+       </div>
+       <div class="row">
+         <div class="form-group col-md-12">
+           <label for="rutas" class="bold">rutas</label>
+           
+           <ui-select required ng-model="item.rutas" theme="bootstrap" ng-disabled="disabled" style="min-width: 300px;" title="Select a rutas">
+             <ui-select-match placeholder="Select a rutas">{{$select.selected.tipo}} {{$select.selected.nombre}} </ui-select-match>
+             <ui-select-choices repeat="item._id as item in rutas | propsFilter: {tipo: $select.search,nombre: $select.search,}">
+               <div ng-bind-html="item.tipo | highlight: $select.search"></div>
+               <div ng-bind-html="item.nombre | highlight: $select.search"></div>
+             </ui-select-choices>
+           </ui-select>
+         </div>
+       </div>
+       <div class="row">
+         <div class="form-group col-md-12">
+           <label for="rutas" class="bold">rutas</label>
+           
+           <ui-select required ng-model="item.rutas" theme="bootstrap" ng-disabled="disabled" style="min-width: 300px;" title="Select a rutas">
+             <ui-select-match placeholder="Select a rutas">{{$select.selected.cedula}} {{$select.selected.nombre}} </ui-select-match>
+             <ui-select-choices repeat="item._id as item in rutas | propsFilter: {cedula: $select.search,nombre: $select.search,}">
+               <div ng-bind-html="item.cedula | highlight: $select.search"></div>
+               <div ng-bind-html="item.nombre | highlight: $select.search"></div>
+             </ui-select-choices>
+           </ui-select>
+         </div>
+       </div>
+     </fieldset>
+</div>
+<div class="modal-footer">
+   <button ng-disabled="myForm.$invalid || myForm.$pristine" class="btn btn-primary pull-right" type="submit" title="Save"><span ng-if="saving"><i class="fa fa-spinner fa fa-spin"></i>&nbsp;</span><span>Save</span></button>
+</div>
+</form>
+</div>

@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <div class="pull-right">
+        <button type="button" class="close pull-right" ng-click="$dismiss()">&times;</button>
+    </div>
+<div>
+    <h3 class="modal-title" ng-if="!item._id">Create User</h3>
+    <h3 class="modal-title" ng-if="item._id">Edit User</h3>
+</div>
+</div>
+<div>
+<form name="myForm" ng-submit="save()" method="POST">
+    <div class="modal-body">
+        <fieldset>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="username" class="bold">Username</label>
+                    <input autofocus required name="username" type="text" class="form-control"
+                    ng-model="item.username">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12" ng-class="{'has-error' : item.password != passwordConfirm }">
+                    <label for="password" class="bold">Password</label>
+                    <input required name="password" type="password" class="form-control" ng-model="item.password">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12 " ng-class="{'has-error' : item.password != passwordConfirm }">
+                    <label for="passwordConfirm" class="bold">Password Confirm</label> <span class="alert-danger"
+                ng-show="item.password != passwordConfirm">Your passwords do not match!</span>
+                <input required name="passwordConfirm" type="password" class="form-control"
+                ng-model="passwordConfirm">
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div class="modal-footer">
+    <button ng-disabled="myForm.$invalid || (item.password != passwordConfirm)"
+    class="btn btn-primary pull-right" type="submit" title="Register">
+    <span ng-if="saving"><i class="fa fa-spinner fa fa-spin"></i>&nbsp;</span>
+    <span>Register</span>
+    </button>
+</div>
+</form>
+</div>

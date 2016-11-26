@@ -1,0 +1,6 @@
+.service('horariosModel', function ($optimumModel) {
+  var model = new $optimumModel();
+  model.url = '/api/horarios';
+  model.constructorModel = ["idruta","idbus","idconductor","fecha","hora"];
+  return model;
+})

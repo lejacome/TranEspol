@@ -1,0 +1,47 @@
+<div class="container-fluid">
+    <div class="row">
+        <validate ng-show="user.rol >= 2">
+            <button ng-click="open('md')" class="btn btn-primary "><i class="fa fa-plus"></i> Create New</button>
+         </validate>
+        <div class="alert alert-{{alert}}" ng-show="msjAlert">{{message}}</div>
+    </div>
+    <div class="row">
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"></i></span>
+            <input ng-model="searchText" type="text" class="form-control" placeholder="Search"
+                   aria-describedby="basic-addon1">
+        </div>
+        <table ng-hide="preloader" class=" col-lg-12 table table-bordered table-hover table-striped" at-table
+               at-paginated at-list="usersList | filter:searchText" at-config="configTable">
+            <thead>
+            </thead>
+            <tbody>
+            <tr>
+                <td at-sortable at-title="User" width="150" >
+                    <validate ng-hide="item.rol == 5 && user.rol < 5">{{item.username}}</validate>
+                </td>
+                <td  at-sortable at-title="Rol" width="250"><validate ng-hide="item.rol == 5 && user.rol < 5">{{labelRol[item.rol-1].rol}}</validate></td>
+                <td  at-title="Acción" width="250">
+                    <validate ng-hide="item.rol == 5 && user.rol < 5">
+                        <validate ng-show="user.rol >= 2">
+                        <button type="button" class="btn btn-default" ng-click="open('lg',item)"><i
+                                class="fa fa-pencil-square-o"></i></button>
+                        <validate ng-show="user.rol >= 3">
+                        <button type="button" class="btn btn-default" ng-click="openDelete('lg',item)"><i
+                            class="fa fa-trash-o"></i></button></validate>
+                        </validate>
+                    </validate>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="col-md-6 col-md-offset-3">
+            <at-pagination ng-hide="preloader" at-list="usersList" at-config="configTable"></at-pagination>
+        </div>
+
+        <div class="row col-lg-offset-6 col-md-offset-6 col-xs-offset-6" ng-hide="!preloader">
+            <i class="fa fa-spinner fa-spin fa-5x position-spinner"></i>
+        </div>
+    </div>
+</div>

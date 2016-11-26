@@ -1,0 +1,27 @@
+<div class="container-fluid">
+   <div class="row div-padding">
+     <button ng-click="open()" class="btn btn-default "><i class="fa fa-plus"></i> Create New</button>
+     <div class="alert alert-{{alert}}" ng-show="msjAlert">{{message}}</div>
+   </div>
+   <div class="row">
+     <div class="input-group">
+       <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"></i></span>
+       <input ng-model="searchText" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1">
+     </div>
+     <table ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="posicionbusList | filter:searchText" at-config="configTable">
+       <thead></thead>
+       <tbody>
+         <tr>
+           <td  at-sortable  at-title='IDBUS' width='150'>{{item.idbus}}</td>
+           <td at-sortable  at-title='FECHA' width='150' >{{item.fecha | date : 'MM-dd-yyyy'}}</td>
+           <td  at-sortable  at-title='LATITUD' width='150'>{{item.latitud}}</td>
+           <td  at-sortable  at-title='LONGITUD' width='150'>{{item.longitud}}</td>
+           
+           <td  at-title="Acción" width="250"><button type="button" class="btn btn-default" ng-click="open(item)"><i class="fa fa-pencil-square-o"></i></button><button type="button" class="btn btn-default" ng-click="openDelete(item)"><i class="fa fa-trash-o"></i></button></td>
+         </tr>
+       </tbody>
+     </table>
+     <div class="col-md-6 col-md-offset-3" ><at-pagination ng-hide="preloader" at-list="posicionbusList" at-config="configTable"></at-pagination></div>
+     <div class="row col-lg-offset-6 col-md-offset-6 col-xs-offset-6" ng-hide="!preloader"><i class="fa fa-spinner fa-spin fa-5x position-spinner"></i></div>
+   </div>
+</div>

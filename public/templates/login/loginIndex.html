@@ -1,0 +1,29 @@
+<link rel="stylesheet" type="text/css" href="../../stylesheets/login.css">
+   <login>
+	<div class="card card-container">
+		<img class="profile-img-card" src="images/default-user.png" />
+		<p class="profile-name-card">{{project.name}}</p>
+		<form class="form-signin" name="formLogin" ng-submit="login()" novalidate>
+			<div class="alert alert-danger" ng-show="error">{{errorMessage}}</div>
+			<div class="alert alert-success" ng-show="registerSuccess">{{msjSuccess}}</div>
+			<input ng-model="loginForm.username" type="text" class="form-control" placeholder="Username" required autofocus>
+			<input ng-model="loginForm.password" type="password" class="form-control" placeholder="Password" required>
+			<div class="checkbox">
+				<label>
+					<input ng-model="remember" type="checkbox" value="remember-me"> Remember me
+				</label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+		</form>
+		<!-- /form -->
+		<div class="text-center">
+			<a href="" ng-click="open('md')">
+                Register
+        </a> |
+			<a href="#">
+                Forgot the password?
+        </a>
+		</div>
+	</div>
+	<!-- /card-container -->
+</login>

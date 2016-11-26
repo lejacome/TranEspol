@@ -1,0 +1,27 @@
+<div>
+    <h2>{{titleHomeController}}</h2>
+    <div class="content">
+		<div id="chat">
+			<div id="header-chat">
+				TransEspol CHAT
+			</div>
+			<div id="mensajes">
+			<message ng-repeat="m in arrayMsg">
+				<div class="mensaje-{{m.class1}}">
+					<img src="images/default-user.png"  class="fotoChat">{{m.user}}
+					<div class="flecha-{{m.class2}}"></div>
+					<div class="contenido">
+						{{m.input}}
+					</div>
+					<div class="fecha">Enviado hace tres minutos</div>
+				</div>
+			</message>
+			</div>
+
+		</div>
+		<div id="caja-mensaje">
+			<input ng-model="msgInput" type="text" placeholder="Escribir mensaje...">
+			<button  ng-click="testSocket()">&#8594; </button>
+		</div>
+	</div>
+</div>
