@@ -11,7 +11,23 @@ var localStrategy = require('passport-local' ).Strategy;
 var expressSession = require('express-session');
 var multipart = require('connect-multiparty');
 var settings = require('./config/settings.js');
-mongoose.connect(settings.db);
+//mongoose.connect(settings.db);
+
+mongoose.Promise = global.Promise;
+
+mongoose.connect("mongodb://admin:1234@ds031641.mlab.com:31641/transespol_db",function(err){
+  if(err){
+    console.log(err);
+  }else{
+    console.log("Conexión exitosa!");
+  }
+
+});
+
+
+
+
+
 //MODELS CRUD
 var model_horarios = require('./models/horarios.js');
 var model_posicionbus = require('./models/posicionbus.js');
@@ -26,7 +42,7 @@ var ModelMenu = require('./config/setup/models/modelMenu.js');
 var ModelRelationship = require('./config/setup/models/modelRelationship.js');
 var ModelSchema = require('./config/setup/models/modelSchema.js');
 var ModelGeneralConfig = require('./config/setup/models/modelGeneralConfig.js');
-//ROUTES CRUD BY SCAFFOLDMEANHEROIC
+//ROUTES CRUD
 var route_horarios = require('./routes/horarios');
 var route_posicionbus = require('./routes/posicionbus');
 var route_rutas = require('./routes/rutas');
@@ -108,7 +124,7 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-//API ROUTES CRUD 
+//API ROUTES CRUD
 app.use('/api',route_horarios);
 app.use('/api',route_posicionbus);
 app.use('/api',route_rutas);
