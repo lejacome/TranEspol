@@ -11,15 +11,11 @@
     $scope.save = function () {
       if(!item){
         $scope.saving = true;
-        item = {idruta: $scope.item.idruta,idbus: $scope.item.idbus,idconductor: $scope.item.idconductor,fecha: $scope.item.fecha,hora: $scope.item.hora};
+        item = {fecha: $scope.item.fecha,hora: $scope.item.hora};
         var horarios = horariosModel.create();
         horarios.bus = $scope.item.bus;
         horarios.conductors = $scope.item.conductors;
         horarios.rutas = $scope.item.rutas;
-        horarios.rutas = $scope.item.rutas;
-        horarios.idruta = $scope.item.idruta;
-        horarios.idbus = $scope.item.idbus;
-        horarios.idconductor = $scope.item.idconductor;
         horarios.fecha = $scope.item.fecha;
         horarios.hora = $scope.item.hora;
         horarios.save().then(function(r){
@@ -39,10 +35,6 @@
         horariosModel.bus =  $scope.item.bus;
         horariosModel.conductors =  $scope.item.conductors;
         horariosModel.rutas =  $scope.item.rutas;
-        horariosModel.rutas =  $scope.item.rutas;
-        horariosModel.idruta = $scope.item.idruta;
-        horariosModel.idbus = $scope.item.idbus;
-        horariosModel.idconductor = $scope.item.idconductor;
         horariosModel.fecha = $scope.item.fecha;
         horariosModel.hora = $scope.item.hora;
         horariosModel.save().then(function(r){

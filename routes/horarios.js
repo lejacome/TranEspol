@@ -48,7 +48,7 @@ router.put('/horarios/:id', function(req, res){
      if(typeof req.body.conductors  != "undefined"){data.conductors = req.body.conductors;}
      if(typeof req.body.rutas  != "undefined"){data.rutas = req.body.rutas;}
      if(typeof req.body.rutas  != "undefined"){data.rutas = req.body.rutas;}
-          if(typeof req.body.idruta  != "undefined"){data.idruta = req.body.idruta;}
+      if(typeof req.body.idruta  != "undefined"){data.idruta = req.body.idruta;}
      if(typeof req.body.idbus  != "undefined"){data.idbus = req.body.idbus;}
      if(typeof req.body.idconductor  != "undefined"){data.idconductor = req.body.idconductor;}
      if(typeof req.body.fecha  != "undefined"){data.fecha = req.body.fecha;}
