@@ -1,14 +1,15 @@
 <div class="container-fluid">
    <div class="row div-padding">
      
-     <div class="alert alert-{{alert}}" ng-show="msjAlert">{{message}}</div>
-
+     <div  class="alert alert-{{alert}}" ng-show="msjAlert">{{message}}</div>
+     <div id="mensaje" class="alert alert-error" style="display:none">Elija una Fecha</div>
    </div>
    <div class="row">
         <div class="row" >
           <label class="bold col-sm-1">FECHA</label>
-          <input  autofocus required name="fecha" type="date" class= "col-sm-2 col-md-offset-1">
+          <input id="fecha"  autofocus required name="fecha" type="date" class= "col-sm-2 col-md-offset-1">
           <button id= "obtener" class="form-group col-sm-2 col-md-offset-1 btn btn-default "><i class="fa fa-plus"></i>Obtener Horario</button>
+
         </div>
      </div>
     <tr>
@@ -23,7 +24,8 @@
 
       <div class="tab-content">
         <div id="lunes" class="tab-pane fade in active lunes">
-          <table ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="horariosList | filter:searchText" at-config="configTable">
+          <input id="searchBarLunes" ng-model="searchText.fecha" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1" style="visibility: hidden">
+          <table id="tableLunes" ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="horariosList | filter:searchText" at-config="configTable">
             <thead></thead>
             <tbody>
               <tr>
@@ -40,7 +42,8 @@
         </div>
         
         <div id="martes" class="tab-pane fade martes">
-          <table ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="horariosList | filter:searchText" at-config="configTable">
+          <input id="searchBarMartes" ng-model="searchText2.fecha" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1" style="visibility: hidden">
+          <table ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="horariosList | filter:searchText2" at-config="configTable">
             <thead></thead>
             <tbody>
               <tr>
@@ -58,13 +61,14 @@
         </div>
         
         <div id="miercoles" class="tab-pane fade miercoles">
-          <table ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="horariosList | filter:searchText" at-config="configTable">
+         <input id="searchBarMiercoles" ng-model="searchText3.fecha" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1" style="visibility: hidden">
+          <table ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="horariosList | filter:searchText3" at-config="configTable">
             <thead></thead>
             <tbody>
               <tr>
-                 <td  at-sortable at-title="BUS" width="150" >{{item.bus.ndisco}} {{item.bus.marca}} {{item.bus.placa}} {{item.bus.modelo}} {{item.bus.csentados}} {{item.bus.cparados}} </td>
-                 <td  at-sortable at-title="CONDUCTORS" width="150" >{{item.conductors.tipo}} {{item.conductors.nombre}} </td>
-                 <td  at-sortable at-title="RUTAS" width="150" >{{item.rutas.tipo}} {{item.rutas.nombre}} </td>           
+                   <td  at-sortable at-title="BUS" width="150" >{{item.bus.ndisco}} {{item.bus.marca}} {{item.bus.placa}} {{item.bus.modelo}} {{item.bus.csentados}} {{item.bus.cparados}} </td>
+                   <td  at-sortable at-title="CONDUCTORS" width="150" >{{item.conductors.tipo}} {{item.conductors.nombre}} </td>
+                   <td  at-sortable at-title="RUTAS" width="150" >{{item.rutas.tipo}} {{item.rutas.nombre}} </td>
                  <td  at-title="Acción" width="250"><button type="button" class="btn btn-default" ng-click="open(item)"><i class="fa fa-pencil-square-o"></i></button><button type="button" class="btn btn-default" ng-click="openDelete(item)"><i class="fa fa-trash-o"></i></button></td>
 
               </tr>
@@ -76,7 +80,8 @@
         </div>
        
         <div id="jueves" class="tab-pane fade jueves">
-          <table ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="horariosList | filter:searchText" at-config="configTable">
+         <input id="searchBarJueves" ng-model="searchText4.fecha" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1" style="visibility: hidden">
+          <table ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="horariosList | filter:searchText4" at-config="configTable">
             <thead></thead>
             <tbody>
               <tr>
@@ -94,7 +99,8 @@
         </div>
         
         <div id="viernes" class="tab-pane fade viernes">
-          <table ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="horariosList | filter:searchText" at-config="configTable">
+         <input id="searchBarViernes" ng-model="searchText5.fecha" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1" style="visibility: hidden">
+          <table ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="horariosList | filter:searchText5" at-config="configTable">
             <thead></thead>
             <tbody>
               <tr>
@@ -116,6 +122,39 @@
 </div>
 <script type="text/javascript">
   $( "#obtener" ).click(function() {
-    $("#contenedor").css("visibility","visible")
+    var fecha= $("#fecha").val();
+    if (fecha!=""){
+      $("#mensaje").css("display","none");
+      $("#contenedor").css("visibility","visible");
+      var nuevo = new Date(fecha.split("-"))
+      $("#searchBarLunes").val(cambio(nuevo)).change();
+      var martes=new Date(nuevo.getTime() + 24*60*60*1000);
+      $("#searchBarMartes").val(cambio(martes)).change();
+      var miercoles=new Date(martes.getTime() + 24*60*60*1000);
+      $("#searchBarMiercoles").val(cambio(miercoles)).change();
+      var jueves=new Date(miercoles.getTime() + 24*60*60*1000);
+      $("#searchBarJueves").val(cambio(jueves)).change();
+      var viernes=new Date(jueves.getTime() + 24*60*60*1000);
+      $("#searchBarViernes").val(cambio(viernes)).change();
+    }else{
+      $("#mensaje").css("display","block");
+    }
   });
+
+  function cambio(dateObj) {
+    var d = new Date(dateObj);
+    var day = d.getDate();
+    var month = d.getMonth() + 1;
+    var year = d.getFullYear();
+
+    if (month < 10) {
+        month = "0" + month;
+    }
+    if (day<10){
+      return year + "-" + month + "-0" + day;
+    }else{
+      return year + "-" + month + "-" + day;
+    }
+  };
+
 </script>

@@ -23,11 +23,7 @@
              <ui-select-match placeholder="Select a bus">{{$select.selected.ndisco}} {{$select.selected.marca}} {{$select.selected.placa}} {{$select.selected.modelo}} {{$select.selected.csentados}} {{$select.selected.cparados}} </ui-select-match>
              <ui-select-choices repeat="item._id as item in bus | propsFilter: {ndisco: $select.search,marca: $select.search,placa: $select.search,modelo: $select.search,csentados: $select.search,cparados: $select.search,}">
                <div ng-bind-html="item.ndisco | highlight: $select.search"></div>
-               <div ng-bind-html="item.marca | highlight: $select.search"></div>
                <div ng-bind-html="item.placa | highlight: $select.search"></div>
-               <div ng-bind-html="item.modelo | highlight: $select.search"></div>
-               <div ng-bind-html="item.csentados | highlight: $select.search"></div>
-               <div ng-bind-html="item.cparados | highlight: $select.search"></div>
              </ui-select-choices>
            </ui-select>
          </div>
