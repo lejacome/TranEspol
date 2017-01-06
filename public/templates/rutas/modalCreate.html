@@ -112,6 +112,8 @@
               }
           }
       }
+      console.log(directionsService)
+      console.log(directionsService.Route)
   }
 
   function fromLatLngToPoint(latLng) {
@@ -173,20 +175,23 @@
           }
 
       });
-      console.log(directionsDisplay)
+      console.log(directionsService)
+      console.log(directionsService.Route)
 
   }
 
   function writeDirectionsSteps(steps) {
 
       var overlayContent = document.getElementById("overlayContent");
-      overlayContent.innerHTML = '';
+      //overlayContent.innerHTML = '';
 
       for (var i = 0; i < steps.length; i++) {
 
           overlayContent.innerHTML += '<p>' + steps[i].instructions + '</p><small>' + steps[i].distance.text + '</small>';
       }
         console.log(directionsDisplay)
+        console.log(directionsService)
+        console.log(directionsService.Route)
 
   }
 
@@ -197,7 +202,8 @@
           map.fitBounds(routeBounds);
       }
         console.log(directionsDisplay)
-
+        console.log(directionsService)
+        console.log(directionsService.Route)
   }
 
   function fitAndOffsetMap() {
@@ -211,6 +217,7 @@
 
   initialize();
   console.log(directionsDisplay)
-
+  console.log(directionsService)
+  console.log(directionsService.Route)
 
 </script>
