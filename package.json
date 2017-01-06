@@ -47,6 +47,7 @@
     "unzip": "^0.1.11"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
     "gulp-nodemon": "^2.0.4",
     "gulp-watch": "^4.3.5"
   }
