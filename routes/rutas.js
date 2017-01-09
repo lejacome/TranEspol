@@ -18,6 +18,10 @@ router.get('/rutas', function(req, res, next) {
 });
 /* POST - Add rutas. */
 router.post('/rutas', function(req, res, next){
+  console.log("Entrada");
+  console.log(req.body.nombre);
+  console.log(req.body.tipo);
+  console.log(req.body.ruta);
    var model = new rutas(req.body);
    model.save(function(err, data){
      if(err){return next(err)}
@@ -30,6 +34,7 @@ router.put('/rutas/:id', function(req, res){
    rutas.findById(req.params.id, function(err, data){
      if(typeof req.body.nombre  != "undefined"){data.nombre = req.body.nombre;}
      if(typeof req.body.tipo  != "undefined"){data.tipo = req.body.tipo;}
+     if(typeof req.body.tipo  != "undefined"){data.ruta = req.body.ruta;}
      data.save(function(err){
        if(err){res.send(err)}
        res.json(data);

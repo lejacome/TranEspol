@@ -9,10 +9,11 @@
     $scope.save = function () {
       if(!item){
         $scope.saving = true;
-        item = {nombre: $scope.item.nombre,tipo: $scope.item.tipo};
+        item = {nombre: $scope.item.nombre,tipo: $scope.item.tipo,ruta:$scope.item.ruta};
         var rutas = rutasModel.create();
         rutas.nombre = $scope.item.nombre;
         rutas.tipo = $scope.item.tipo;
+        rutas.ruta = $scope.item.ruta
         rutas.save().then(function(r){
           $scope.saving = false;
           $uibModalInstance.close(r);
@@ -21,6 +22,7 @@
         rutasModel.findById($scope.item._id);
         rutasModel.nombre = $scope.item.nombre;
         rutasModel.tipo = $scope.item.tipo;
+        rutasModel.ruta = $scope.item.ruta;
         rutasModel.save().then(function(r){
           $scope.saving = false;
           $uibModalInstance.close(r);
