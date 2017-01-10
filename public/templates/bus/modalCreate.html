@@ -11,13 +11,23 @@
 <form name="myForm" ng-submit="save()" method="POST">
    <div class="modal-body">
      <fieldset>
-       <div class="row" ><div class="form-group col-md-12"><label for="ndisco" class="bold">NDISCO</label><input  autofocus required name="ndisco" type="text" class="form-control"  ng-model="item.ndisco" ></div></div>
-       <div class="row" ><div class="form-group col-md-12"><label for="marca" class="bold">MARCA</label><input  autofocus required name="marca" type="text" class="form-control"  ng-model="item.marca" ></div></div>
+       <div class="row" ><div class="form-group col-md-12"><label for="disco" class="bold">DISCO</label><input  autofocus required name="disco" type="number" class="form-control"  ng-model="item.disco" ></div></div>
        <div class="row" ><div class="form-group col-md-12"><label for="placa" class="bold">PLACA</label><input  autofocus required name="placa" type="text" class="form-control"  ng-model="item.placa" ></div></div>
-       <div class="row" ><div class="form-group col-md-12"><label for="modelo" class="bold">MODELO</label><input  autofocus required name="modelo" type="text" class="form-control"  ng-model="item.modelo" ></div></div>
-       <div class="row" ><div class="form-group col-md-12"><label for="csentados" class="bold">CSENTADOS</label><input  autofocus required name="csentados" type="number" class="form-control"  ng-model="item.csentados" ></div></div>
-       <div class="row" ><div class="form-group col-md-12"><label for="cparados" class="bold">CPARADOS</label><input  autofocus required name="cparados" type="text" class="form-control"  ng-model="item.cparados" ></div></div>
+       <div class="row" hidden><div class="form-group col-md-12"><label for="csentados" class="bold">CSENTADOS</label><input  autofocus  name="csentados" type="number" class="form-control"  ng-model="item.csentados" ></div></div>
+       <div class="row" hidden><div class="form-group col-md-12"><label for="cparados" class="bold">CPARADOS</label><input  autofocus  name="cparados" type="number" class="form-control"  ng-model="item.cparados" ></div></div>
        
+       <div class="row">
+         <div class="form-group col-md-12">
+           <label for="marcas" class="bold">marcas</label>
+           
+           <ui-select required ng-model="item.marcas" theme="bootstrap" ng-disabled="disabled" style="min-width: 300px;" title="Select a marcas">
+             <ui-select-match placeholder="Select a marcas">{{$select.selected.marca}} </ui-select-match>
+             <ui-select-choices repeat="item._id as item in marcas | propsFilter: {marca: $select.search,}">
+               <div ng-bind-html="item.marca | highlight: $select.search"></div>
+             </ui-select-choices>
+           </ui-select>
+         </div>
+       </div>
      </fieldset>
 </div>
 <div class="modal-footer">
