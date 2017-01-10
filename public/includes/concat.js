@@ -576,12 +576,16 @@
 
 
     }])
-.service('busModel', function ($optimumModel) {
+
+.service('busModel', function ($optimumModel,marcasModel) {
   var model = new $optimumModel();
   model.url = '/api/bus';
-  model.constructorModel = ["ndisco","marca","placa","modelo","csentados","cparados"];
+  model.constructorModel = ["marcas","disco","placa","csentados","cparados"];
+ model.dependencies = {marcas:marcasModel.url};
   return model;
 })
+
+
 .service('conductorsModel', function ($optimumModel) {
   var model = new $optimumModel();
   model.url = '/api/conductors';
@@ -593,6 +597,12 @@
   model.url = '/api/horarios';
   model.constructorModel = ["bus","conductors","rutas","rutas","idruta","idbus","idconductor","fecha","hora"];
  model.dependencies = {bus:busModel.url,conductors:conductorsModel.url,rutas:rutasModel.url,rutas:rutasModel.url};
+  return model;
+})
+.service('marcasModel', function ($optimumModel) {
+  var model = new $optimumModel();
+  model.url = '/api/marcas';
+  model.constructorModel = ["marca","modelo"];
   return model;
 })
 .service('posicionbusModel', function ($optimumModel) {
