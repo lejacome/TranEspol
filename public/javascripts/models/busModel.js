@@ -1,6 +1,7 @@
-.service('busModel', function ($optimumModel) {
+.service('busModel', function ($optimumModel,marcasModel) {
   var model = new $optimumModel();
   model.url = '/api/bus';
-  model.constructorModel = ["ndisco","marca","placa","modelo","csentados","cparados"];
+  model.constructorModel = ["marcas","disco","placa","csentados","cparados"];
+ model.dependencies = {marcas:marcasModel.url};
   return model;
 })
