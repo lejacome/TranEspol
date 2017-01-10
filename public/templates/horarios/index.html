@@ -9,6 +9,7 @@
           <label class="bold col-sm-1">FECHA</label>
           <input id="fecha"  autofocus required name="fecha" type="date" class= "col-sm-2 col-md-offset-1">
           <button id= "obtener" class="form-group col-sm-2 col-md-offset-1 btn btn-default "><i class="fa fa-plus"></i>Obtener Horario</button>
+          <button id= "pdf" class="btn btn-info ">Generar PDF</button>
 
         </div>
      </div>
@@ -120,6 +121,27 @@
     </div>
 
 </div>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Vista Previa</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Descargar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+ <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $( "#obtener" ).click(function() {
     var fecha= $("#fecha").val();
@@ -141,6 +163,55 @@
     }
   });
 
+  $( "#pdf" ).click(function(){
+      $("#myModal").modal("show");
+      $("#txtfname").val($(this).closest('tr').children()[0].textContent);
+      $("#txtlname").val($(this).closest('tr').children()[1].textContent);
+      /*var doc = new PDFDocument();
+      var stream = doc.pipe(blobStream());
+
+      // draw some text
+      doc.fontSize(25)
+         .text('Here is some vector graphics...', 100, 80);
+         
+      // some vector graphics
+      doc.save()
+         .moveTo(100, 150)
+         .lineTo(100, 250)
+         .lineTo(200, 250)
+         .fill("#FF3300");
+         
+      doc.circle(280, 200, 50)
+         .fill("#6600FF");
+         
+      // an SVG path
+      doc.scale(0.6)
+         .translate(470, 130)
+         .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
+         .fill('red', 'even-odd')
+         .restore();
+         
+      // and some justified text wrapped into columns
+      doc.text('And here is some wrapped text...', 100, 300)
+         .font('Times-Roman', 13)
+         .moveDown()
+         .text(lorem, {
+           width: 412,
+           align: 'justify',
+           indent: 30,
+           columns: 2,
+           height: 300,
+           ellipsis: true
+         });
+         
+      // end and display the document in the iframe to the right
+      doc.end();
+      stream.on('finish', function() {
+        iframe.src = stream.toBlobURL('application/pdf');
+      });*/
+  });
+
+
   function cambio(dateObj) {
     var d = new Date(dateObj);
     var day = d.getDate();
@@ -156,5 +227,7 @@
       return year + "-" + month + "-" + day;
     }
   };
+  
+  
 
 </script>

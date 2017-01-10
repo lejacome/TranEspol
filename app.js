@@ -13,6 +13,11 @@ var multipart = require('connect-multiparty');
 var settings = require('./config/settings.js');
 //mongoose.connect(settings.db);
 
+ 
+ 
+// for backwards compatibility 
+// alias to pdf.create(html[, options]).toBuffer(callback) 
+
 mongoose.Promise = global.Promise;
 
 mongoose.connect("mongodb://admin:1234@ds031641.mlab.com:31641/transespol_db",function(err){
