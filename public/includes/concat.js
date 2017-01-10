@@ -815,6 +815,9 @@
         });
       }
     };
+	marcasModel.getAll().then(function(data) {
+      $scope.marcas = data;
+  });
 }])
 .controller('modalbusDeleteController',
   ['$scope', '$uibModalInstance', 'item',
@@ -827,6 +830,18 @@
        $uibModalInstance.dismiss('cancel');
      };
 }])
+
+.config(function ($routeProvider) {
+  $routeProvider
+    .when('/bus', {
+      templateUrl: '/templates/bus/index.html',
+      controller: 'busController',
+      access: {
+        restricted: false,
+       rol: 4
+      }
+    });
+ })
 .config(function ($routeProvider) {
   $routeProvider
     .when('/conductors', {
@@ -1337,6 +1352,129 @@
        $uibModalInstance.dismiss('cancel');
      };
 }])
+
+.controller('marcasController',
+  ['$rootScope','$scope', '$location', 'marcasModel','$uibModal',
+  function ($rootScope,$scope, $location, marcasModel,$uibModal) {
+    $scope.titleController = 'MEAN-CASE SUPER HEROIC';
+    $rootScope.titleWeb = 'marcas';
+    $scope.preloader = true;
+    $scope.msjAlert = false;
+    marcasModel.getAll().then(function(data) {
+      $scope.marcasList = data;
+      $scope.marcasTemp = angular.copy($scope.marcasList);
+      $scope.preloader = false;
+    });
+    /*  Modal */
+     $scope.open = function (item) {
+       var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'templates/marcas/modalCreate.html',
+        controller: 'modalmarcasCreateController',
+        size: 'lg',
+        resolve: {
+         item: function () {
+          return item;
+         }
+        }
+      });
+      modalInstance.result.then(function(data) {
+        if(!item) {
+           $scope.marcasList.push(data);
+           $scope.marcasTemp = angular.copy($scope.marcasList);
+        }
+      },function(result){
+      $scope.marcasList = $scope.marcasTemp;
+      $scope.marcasTemp = angular.copy($scope.marcasList);
+    });
+  };
+  /*  Delete  */
+  $scope.openDelete = function (item) {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: 'templates/marcas/modalDelete.html',
+      controller: 'modalmarcasDeleteController',
+      size: 'lg',
+      resolve: {
+        item: function () {
+           return item;
+        }
+      }
+    });
+    modalInstance.result.then(function(data) {
+      var idx = $scope.marcasList.indexOf(data);
+      $scope.marcasList.splice(idx, 1);
+      marcasModel
+        .destroy(data._id)
+        .then(function(result) {
+          $scope.msjAlert = true;
+          $scope.alert = 'success';
+          $scope.message = result.message;
+        })
+        .catch(function(err) {
+          $scope.msjAlert = true;
+          $scope.alert = 'danger';
+          $scope.message = 'Error '+err;
+        })
+      });
+    };
+}])
+.controller('modalmarcasCreateController',
+  ['$scope', '$uibModalInstance', 'item','marcasModel','$filter',
+  function ($scope, $uibModalInstance, item,marcasModel,$filter) {
+    $scope.item = item;
+    $scope.saving = false;
+    if(item){
+       //add optional code
+    }
+    $scope.save = function () {
+      if(!item){
+        $scope.saving = true;
+        item = {marca: $scope.item.marca,modelo: $scope.item.modelo};
+        var marcas = marcasModel.create();
+        marcas.marca = $scope.item.marca;
+        marcas.modelo = $scope.item.modelo;
+        marcas.save().then(function(r){
+          $scope.saving = false;
+          $uibModalInstance.close(r);
+        });
+      }else{
+        marcasModel.findById($scope.item._id);
+        marcasModel.marca = $scope.item.marca;
+        marcasModel.modelo = $scope.item.modelo;
+        marcasModel.save().then(function(r){
+          $scope.saving = false;
+          $uibModalInstance.close(r);
+        });
+      }
+    };
+}])
+.controller('modalmarcasDeleteController',
+  ['$scope', '$uibModalInstance', 'item',
+  function ($scope, $uibModalInstance, item) {
+    $scope.item = item;
+    $scope.ok = function () {
+      $uibModalInstance.close($scope.item);
+    };
+    $scope.cancel = function () {
+       $uibModalInstance.dismiss('cancel');
+     };
+}])
+.config(function ($routeProvider) {
+  $routeProvider
+    .when('/marcas', {
+      templateUrl: '/templates/marcas/index.html',
+      controller: 'marcasController',
+      access: {
+        restricted: false,
+       rol: 4
+      }
+    });
+ })
+
+
+
+
 .controller('modalUserCreateController',
   ['$scope', '$uibModalInstance', 'item','AuthService','userService',
   function ($scope, $uibModalInstance, item,AuthService,userService) {
