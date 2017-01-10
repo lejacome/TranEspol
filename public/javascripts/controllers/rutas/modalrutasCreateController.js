@@ -13,7 +13,7 @@
         var rutas = rutasModel.create();
         rutas.nombre = $scope.item.nombre;
         rutas.tipo = $scope.item.tipo;
-        rutas.ruta = $scope.item.ruta
+        rutas.ruta = $scope.item.ruta;
         rutas.save().then(function(r){
           $scope.saving = false;
           $uibModalInstance.close(r);

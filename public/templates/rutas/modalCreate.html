@@ -13,18 +13,18 @@
 <form name="myForm" ng-submit="save()" method="POST">
    <div class="modal-body">
      <fieldset>
-       <div class="row" ><div class="form-group col-md-12"><label for="nombre" class="bold">NOMBRE</label><input  autofocus required name="nombre" type="text" class="form-control"  ng-model="item.nombre" ></div></div>
-       <div class="row" ><div class="form-group col-md-12"><label for="tipo" class="bold">TIPO</label><input  autofocus required name="tipo" type="text" class="form-control"  ng-model="item.tipo" ></div></div>
-       <div id="ruta" class="row" ><div class="form-group col-md-12"><label for="ruta" class="bold">RUTA</label><input  autofocus required name="ruta" type="text" class="form-control"  ng-model="item.ruta" ></div></div>
+       <div class="row" ><div class="form-group col-md-12"><label for="nombre" class="bold">NOMBRE</label><input  id ="nombre_valor" required name="nombre" type="text" class="form-control"  ng-model="item.nombre" ></div></div>
+       <div class="row" ><div class="form-group col-md-12"><label for="tipo" class="bold">TIPO</label><input id="tipo_valor" required name="tipo" type="text" class="form-control"  ng-model="item.tipo" ></div></div>
+       <div style="display: none" class="row" ><div class="form-group col-md-12"><label for="ruta" class="bold"></label><input  id="ruta_valor" name="ruta" type="text" class="form-control"  ng-model="item.ruta" ></div></div>
        <h2>Elija la ruta en el mapa: </h2>
        <div id="map"></div>
-       <div id="right-panel">
+       <div id="right-panel" style="display: none">
          <p>Total Distance: <span id="total"></span></p>
        </div>
      </fieldset>
 </div>
 <div class="modal-footer">
-   <button ng-disabled="myForm.$invalid || myForm.$pristine" class="btn btn-primary pull-right" type="submit" title="Save"><span ng-if="saving"><i class="fa fa-spinner fa fa-spin"></i>&nbsp;</span><span>Save</span></button>
+   <button id="Save_btn" ng-disabled="myForm.$invalid || myForm.$pristine" class="btn btn-primary pull-right" type="submit" title="Save"><span ng-if="saving"><i class="fa fa-spinner fa fa-spin"></i>&nbsp;</span><span>Save</span></button>
 </div>
 </form>
 </div>
@@ -32,7 +32,7 @@
   #map {
     height: 100%;
     float: left;
-    width: 63%;
+    width: 100%;
     height: 100%;
   }
   #right-panel {
@@ -51,7 +51,7 @@ font-size: 15px;
 }
 
 #right-panel select {
-width: 100%;
+width: 0%;
 }
 
 #right-panel i {
@@ -65,33 +65,52 @@ font-size: 12px;
 </style>
 <script>
 function initMap() {
-var map = new google.maps.Map(document.getElementById('map'), {
-zoom: 4,
-center: {lat: -2.163545, lng: -79.939192}  // Ceibos
-});
-
-var directionsService = new google.maps.DirectionsService;
-var directionsDisplay = new google.maps.DirectionsRenderer({
-draggable: true,
-map: map,
-panel: document.getElementById('right-panel')
-});
-directionsDisplay.addListener('directions_changed', function() {
-computeTotalDistance(directionsDisplay.getDirections());
-updateField(directionsDisplay);
-});
-var origin = new google.maps.LatLng(-2.148978, -79.964101);
-var destiny = new google.maps.LatLng(-2.169924, -79.918545);
-displayRoute(origin,destiny, directionsService,
-    directionsDisplay);
+    if(!$("#nombre_valor").val()){
+      var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: {lat: -2.163545, lng: -79.939192}  // Ceibos
+      });
+        var directionsService = new google.maps.DirectionsService;
+        var origin = new google.maps.LatLng(-2.148978, -79.964101);
+        var destiny = new google.maps.LatLng(-2.169924, -79.918545);
+        var directionsDisplay = new google.maps.DirectionsRenderer({
+        draggable: true,
+        map: map,
+        panel: document.getElementById('right-panel')
+        });
+          directionsDisplay.addListener('directions_changed', function() {
+          computeTotalDistance(directionsDisplay.getDirections());
+          updateField(directionsDisplay);
+          });
+          displayRoute(origin,destiny, directionsService,
+              directionsDisplay);
+  }else{
+    var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: {lat: -2.163545, lng: -79.939192}  // Ceibos
+    });
+      var directionsService = new google.maps.DirectionsService;
+      var directionsDisplay = new google.maps.DirectionsRenderer({
+      draggable: false,
+      map: map,
+      panel: document.getElementById('right-panel')
+      });
+      var text = document.getElementById("ruta_valor").value;
+      var legs_obj = JSON.parse(text);
+      var start = legs_obj.start_address;
+      var end =  legs_obj.end_address;
+      var wyp = JSON.parse(legs_obj.via_waypoint);
+      displaySavedRoute(start,end, directionsService,
+        directionsDisplay,wyp);
+  }
 }
 
 function displayRoute(origin,destination, service, display){
 service.route({
-origin: origin,
-destination: destination,
-travelMode: google.maps.TravelMode.DRIVING,
-avoidTolls: true
+  origin: origin,
+  destination: destination,
+  travelMode: google.maps.TravelMode.DRIVING,
+  avoidTolls: true
 }, function(response, status) {
 if (status === google.maps.DirectionsStatus.OK) {
   display.setDirections(response);
@@ -99,6 +118,32 @@ if (status === google.maps.DirectionsStatus.OK) {
   alert('Could not display directions due to: ' + status);
 }
 });
+
+}
+
+function displaySavedRoute(origin,destination, service, display,waypoints){
+var new_waypoints = [];
+waypoints.forEach(function(iterator){
+  new_waypoints.push({
+  location: iterator.location,
+  stopover: true
+  })
+});
+
+service.route({
+origin: origin,
+destination: destination,
+waypoints: new_waypoints,
+optimizeWaypoints: true,
+travelMode: google.maps.TravelMode.DRIVING,
+}, function(response, status) {
+if (status === google.maps.DirectionsStatus.OK) {
+  display.setDirections(response);
+} else {
+  alert('Could not display directions due to: ' + status);
+}
+});
+
 }
 
 function computeTotalDistance(result) {
@@ -114,14 +159,40 @@ document.getElementById('total').innerHTML = total + ' km';
 function updateField(directionsDisplay){
   var start = JSON.stringify(directionsDisplay.getDirections().routes[0].legs[0].start_address);
   var end =  JSON.stringify(directionsDisplay.getDirections().routes[0].legs[0].end_address);
-  var legs =  JSON.stringify(directionsDisplay.getDirections().routes[0].legs[0]);
+  var legs =  JSON.stringify(directionsDisplay.getDirections().routes[0].legs[0].via_waypoint);
   var legs_obj = JSON.parse(legs);
-  console.log(start);
-  console.log(end);
-  console.log(legs);
-  document.getElementById("ruta").value = legs;
-  console.log(document.getElementById("ruta").value);
+  var send_obj = {
+    "start_address":start,
+    "end_address":end,
+    "via_waypoint":legs
+  }
+  console.log(send_obj);
+  document.getElementById("ruta_valor").value = JSON.stringify(send_obj);
 }
+
+$("#Save_btn").click(function(){
+    var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost:4000/api/rutas",
+    "method": "POST",
+    "headers": {
+      "content-type": "application/x-www-form-urlencoded",
+      "cache-control": "no-cache",
+      "postman-token": "39f2da1a-a873-4583-49c5-df397bdae093"
+      },
+      "data": {
+        "nombre": document.getElementById("nombre_valor").value,
+        "tipo": document.getElementById("tipo_valor").value,
+        "ruta": document.getElementById("ruta_valor").value
+      }
+    }
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+  $.modal.close();
+});
 
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqAHlnALaVZ39B9c6XSE_wr0B1IBMf5LY&callback=initMap" type="text/javascript"></script>
