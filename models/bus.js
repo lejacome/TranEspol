@@ -1,10 +1,9 @@
 var mongoose = require('mongoose');
 var busSchema = new mongoose.Schema({
-   ndisco: String,
-   marca: String,
+   disco: Number,
    placa: String,
-   modelo: String,
    csentados: Number,
-   cparados: String
+   cparados: Number,
+   marcas: { type: mongoose.Schema.ObjectId, ref: "marcas" }
 });
 mongoose.model('bus', busSchema);
