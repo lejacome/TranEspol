@@ -1,42 +1,8 @@
-<script type="text/javascript" src="includes/jspdf.min.js"></script>
-<script type="text/javascript" src="includes/html2canvas.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script type="text/javascript">
-  function pdfToHTML(){
-  var pdf = new jsPDF('p', 'pt', 'letter');
-  source = $('#testdiv')[0];
-  specialElementHandlers = {
-    '#bypassme': function(element, renderer){
-      return true
-    }
-  }
-  margins = {
-      top: 50,
-      left: 60,
-      width: 545
-    };
-  pdf.fromHTML(
-      source // HTML string or DOM elem ref.
-      , margins.left // x coord
-      , margins.top // y coord
-      , {
-        'width': margins.width // max width of content on PDF
-        , 'elementHandlers': specialElementHandlers
-      },
-      function (dispose) {
-        // dispose: object with X, Y of the last line add to the PDF
-        //          this allow the insertion of new lines after html
-          pdf.save('Reporte.pdf');
-        }
-    )   
-  }
-</script>
 <div class="container-fluid">
    <div class="row div-padding">
      <div class="alert alert-{{alert}}" ng-show="msjAlert">{{message}}</div>
    </div>
    <div class="row">
-    <a href ng-click="javascript:pdfToHTML()" class="btn btn-warning col-md-2 pull-right blinding" role="button">Generar PDF</a>
      <div class="input-group">
        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"></i></span>
        <input ng-model="searchText" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1">
