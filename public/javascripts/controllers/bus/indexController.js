@@ -24,10 +24,10 @@
         }
       });
       modalInstance.result.then(function(data) {
-        if(!item) {
-           $scope.busList.push(data);
-           $scope.busTemp = angular.copy($scope.busList);
-        }
+           busModel.getAll().then(function(d) {
+             $scope.busList = d;
+             $scope.busTemp = angular.copy($scope.busList);
+           });
       },function(result){
       $scope.busList = $scope.busTemp;
       $scope.busTemp = angular.copy($scope.busList);
