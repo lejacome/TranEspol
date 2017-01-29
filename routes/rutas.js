@@ -19,18 +19,20 @@ router.get('/rutas', function(req, res, next) {
 /* POST - Add rutas. */
 router.post('/rutas', function(req, res, next){
    var model = new rutas(req.body);
-   model.save(function(err, data){
-     if(err){return next(err)}
-     res.json(data);
-     meanCaseBase.auditSave(req,'Insert Register','rutas',data);
-   })
+   if(model.ruta!="undefined"){
+     model.save(function(err, data){
+       if(err){return next(err)}
+       res.json(data);
+       meanCaseBase.auditSave(req,'Insert Register','rutas',data);
+     })
+    }
 });
 /* PUT - Update rutas. */
 router.put('/rutas/:id', function(req, res){
    rutas.findById(req.params.id, function(err, data){
      if(typeof req.body.nombre  != "undefined"){data.nombre = req.body.nombre;}
      if(typeof req.body.tipo  != "undefined"){data.tipo = req.body.tipo;}
-     if(typeof req.body.tipo  != "undefined"){data.ruta = req.body.ruta;}
+     if(typeof req.body.ruta  != "undefined"){data.ruta = req.body.ruta;}
      data.save(function(err){
        if(err){res.send(err)}
        res.json(data);

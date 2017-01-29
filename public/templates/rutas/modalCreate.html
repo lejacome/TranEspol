@@ -10,12 +10,12 @@
 </div>
 </div>
 <div>
-<form name="myForm" ng-submit="save()" method="POST">
+<form name="myForm" action = "https://transespol.herokuapp.com/#/rutas" >
    <div class="modal-body">
      <fieldset>
        <div class="row" ><div class="form-group col-md-12"><label for="nombre" class="bold">NOMBRE</label><input  id ="nombre_valor" required name="nombre" type="text" class="form-control"  ng-model="item.nombre" ></div></div>
        <div class="row" ><div class="form-group col-md-12"><label for="tipo" class="bold">TIPO</label><input id="tipo_valor" required name="tipo" type="text" class="form-control"  ng-model="item.tipo" ></div></div>
-       <div style="display: none" class="row" ><div class="form-group col-md-12"><label for="ruta" class="bold"></label><input  id="ruta_valor" name="ruta" type="text" class="form-control"  ng-model="item.ruta" ></div></div>
+       <div style="display: none" class="row" ><div class="form-group col-md-12"><label style="display: none" for="ruta" class="bold">RUTA</label><input  id="ruta_valor" name="ruta" type="text" class="form-control"  ng-model="item.ruta" ></div></div>
        <h2>Elija la ruta en el mapa: </h2>
        <div id="map"></div>
        <div id="right-panel" style="display: none">
@@ -24,7 +24,7 @@
      </fieldset>
 </div>
 <div class="modal-footer">
-   <button id="Save_btn" ng-disabled="myForm.$invalid || myForm.$pristine" class="btn btn-primary pull-right" type="submit" title="Save"><span ng-if="saving"><i class="fa fa-spinner fa fa-spin"></i>&nbsp;</span><span>Save</span></button>
+   <button id="Save_btn" ng-disabled="myForm.$invalid || myForm.$pristine" class="btn btn-primary pull-right" type="submit" title="Save" data-dismiss="modal" aria-label="Close"><span ng-if="saving"><i class="fa fa-spinner fa fa-spin"></i>&nbsp;</span><span>Save</span></button>
 </div>
 </form>
 </div>
@@ -174,7 +174,7 @@ $("#Save_btn").click(function(){
     var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost:4000/api/rutas",
+    "url": "https://transespol.herokuapp.com/api/rutas",
     "method": "POST",
     "headers": {
       "content-type": "application/x-www-form-urlencoded",
@@ -191,7 +191,6 @@ $("#Save_btn").click(function(){
   $.ajax(settings).done(function (response) {
     console.log(response);
   });
-  $.modal.close();
 });
 
 </script>
