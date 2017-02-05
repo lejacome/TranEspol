@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <label for="op_salida_ruta">Salida</label>
+    <select id="op_salida_ruta"></select>
+    <div id="map"></div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+
+  var sel_entrada = document.getElementById('op_entrada_ruta');
+  var sel_salida = document.getElementById('op_salida_ruta');
+
+
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://transespol.herokuapp.com/api/rutas",
+    "method": "GET",
+    "headers": {
+      "content-type": "application/x-www-form-urlencoded",
+      "cache-control": "no-cache",
+      "postman-token": "cd0c06fa-2b39-5bff-e799-cbfa45649d3d"
+    },
+    "data": {
+      "nombre": "a",
+      "tipo": "a",
+      "ruta": "a"
+    }
+  }
+
+  $.ajax(settings).done(function (response) {
+    response.forEach(function(item){
+        if(item.tipo.toLowerCase()=="salida"){
+          opt = document.createElement('option');
+          opt.value = JSON.stringify(item);
+          opt.innerHTML = item.nombre;
+          sel_entrada.appendChild(opt);
+        }
+    });
+  });
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: {lat: -2.163545, lng: -79.939192}  // Ceibos
+    });
+  }
+  function initMap_1(id_combo) {
+    var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: {lat: -2.163545, lng: -79.939192}  // Ceibos
+    });
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer({
+        draggable: false,
+        map: map,
+        panel: document.getElementById('right-panel')
+        });
+        var e = document.getElementById(id_combo);
+        var text = e.options[e.selectedIndex].value;
+        var legs_obj = JSON.parse(text);
+        legs_obj = JSON.parse(legs_obj.ruta);
+        var start = legs_obj.start_address;
+        var end =  legs_obj.end_address;
+        var wyp = JSON.parse(legs_obj.via_waypoint);
+        displaySavedRoute(start,end, directionsService,
+          directionsDisplay,wyp);
+  }
+
+  function displayRoute(origin,destination, service, display){
+    service.route({
+      origin: origin,
+      destination: destination,
+      travelMode: google.maps.TravelMode.DRIVING,
+      avoidTolls: true
+      }, function(response, status) {
+      if (status === google.maps.DirectionsStatus.OK) {
+        display.setDirections(response);
+      } else {
+        alert('Could not display directions due to: ' + status);
+      }
+    });
+  }
+
+  function displaySavedRoute(origin,destination, service, display,waypoints){
+    var new_waypoints = [];
+    waypoints.forEach(function(iterator){
+      new_waypoints.push({
+      location: iterator.location,
+      stopover: true
+      })
+    });
+
+    service.route({
+      origin: origin,
+      destination: destination,
+      waypoints: new_waypoints,
+      optimizeWaypoints: true,
+      travelMode: google.maps.TravelMode.DRIVING,
+      }, function(response, status) {
+      if (status === google.maps.DirectionsStatus.OK) {
+        display.setDirections(response);
+      } else {
+        alert('Could not display directions due to: ' + status);
+      }
+    });
+
+  }
+
+  $('#op_salida_ruta').change(function(){
+    initMap_1("op_salida_ruta");
+  });
+
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqAHlnALaVZ39B9c6XSE_wr0B1IBMf5LY&callback=initMap" type="text/javascript"></script>
+</html>

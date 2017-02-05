@@ -94,8 +94,11 @@ app.use(require('express-session')({
       });
     });
 //Mapas Estudiantes
-app.get('/rutasEstudiantes', function(req, res) {
-  res.render('views/rutasEstudiantes');
+app.get('/rutaEstudianteEntrada', function(req, res) {
+  res.render('views/rutaEstudianteEntrada');
+});
+app.get('/rutaEstudianteSalida', function(req, res) {
+  res.render('views/rutaEstudianteSalida');
 });
 //Call cookie
 
