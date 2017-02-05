@@ -93,8 +93,10 @@ app.use(require('express-session')({
             next();
       });
     });
-//Middlewares meanCase
-
+//Mapas Estudiantes
+app.get('/rutasEstudiantes', function(req, res) {
+  res.render('views/rutasEstudiantes');
+});
 //Call cookie
 
 app.get('/cookie', function(req, res) {
@@ -178,6 +180,8 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+
 
 
 module.exports = app;
