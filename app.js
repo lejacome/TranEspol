@@ -29,6 +29,8 @@ mongoose.connect("mongodb://admin:1234@ds031641.mlab.com:31641/transespol_db",fu
 
 
 //MODELS CRUD
+var model_comentarios = require('./models/comentarios.js');
+var model_objetos = require('./models/objetos.js');
 var model_horarios = require('./models/horarios.js');
 var model_posicionbus = require('./models/posicionbus.js');
 var model_rutas = require('./models/rutas.js');
