@@ -81,6 +81,9 @@ app.get('/rutaEstudianteEntrada', function(req, res) {
 app.get('/rutaEstudianteSalida', function(req, res) {
   res.render('views/rutaEstudianteSalida');
 });
+app.get('/rutaCorta', function(req, res) {
+  res.render('views/rutaCorta');
+});
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(multipart());
