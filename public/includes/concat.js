@@ -585,6 +585,18 @@
   return model;
 })
 
+.service('comentariosModel', function ($optimumModel) {
+  var model = new $optimumModel();
+  model.url = '/api/comentarios';
+  model.constructorModel = ["nombre","descripcion"];
+  return model;
+})
+.service('objetosModel', function ($optimumModel) {
+  var model = new $optimumModel();
+  model.url = '/api/objetos';
+  model.constructorModel = ["nombre","descripcion","imagen"];
+  return model;
+})
 
 .service('conductorsModel', function ($optimumModel) {
   var model = new $optimumModel();
@@ -701,6 +713,134 @@
       });
     };
 }])
+
+
+
+
+.controller('objetosController',
+  ['$rootScope','$scope', '$location', 'objetosModel','$uibModal',
+  function ($rootScope,$scope, $location, objetosModel,$uibModal) {
+    $scope.titleController = 'MEAN-CASE SUPER HEROIC';
+    $rootScope.titleWeb = 'objetos';
+    $scope.preloader = true;
+    $scope.msjAlert = false;
+    objetosModel.getAll().then(function(data) {
+      $scope.objetosList = data;
+      $scope.objetosTemp = angular.copy($scope.objetosList);
+      $scope.preloader = false;
+    });
+    /*  Modal */
+     $scope.open = function (item) {
+       var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'templates/objetos/modalCreate.html',
+        controller: 'modalobjetosCreateController',
+        size: 'lg',
+        resolve: {
+         item: function () {
+          return item;
+         }
+        }
+      });
+      modalInstance.result.then(function(data) {
+        if(!item) {
+           $scope.objetosList.push(data);
+           $scope.objetosTemp = angular.copy($scope.objetosList);
+        }
+      },function(result){
+      $scope.objetosList = $scope.objetosTemp;
+      $scope.objetosTemp = angular.copy($scope.objetosList);
+    });
+  };
+  /*  Delete  */
+  $scope.openDelete = function (item) {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: 'templates/objetos/modalDelete.html',
+      controller: 'modalobjetosDeleteController',
+      size: 'lg',
+      resolve: {
+        item: function () {
+           return item;
+        }
+      }
+    });
+    modalInstance.result.then(function(data) {
+      var idx = $scope.objetosList.indexOf(data);
+      $scope.objetosList.splice(idx, 1);
+      objetosModel
+        .destroy(data._id)
+        .then(function(result) {
+          $scope.msjAlert = true;
+          $scope.alert = 'success';
+          $scope.message = result.message;
+        })
+        .catch(function(err) {
+          $scope.msjAlert = true;
+          $scope.alert = 'danger';
+          $scope.message = 'Error '+err;
+        })
+      });
+    };
+}])
+.controller('modalobjetosCreateController',
+  ['$scope', '$uibModalInstance', 'item','objetosModel','$filter',
+  function ($scope, $uibModalInstance, item,objetosModel,$filter) {
+    $scope.item = item;
+    $scope.saving = false;
+    if(item){
+       //add optional code
+    }
+    $scope.save = function () {
+      if(!item){
+        $scope.saving = true;
+        item = {nombre: $scope.item.nombre,descripcion: $scope.item.descripcion,imagen: $scope.item.imagen};
+        var objetos = objetosModel.create();
+        objetos.nombre = $scope.item.nombre;
+        objetos.descripcion = $scope.item.descripcion;
+        objetos.imagen = $scope.item.imagen;
+        objetos.save().then(function(r){
+          $scope.saving = false;
+          $uibModalInstance.close(r);
+        });
+      }else{
+        objetosModel.findById($scope.item._id);
+        objetosModel.nombre = $scope.item.nombre;
+        objetosModel.descripcion = $scope.item.descripcion;
+        objetosModel.imagen = $scope.item.imagen;
+        objetosModel.save().then(function(r){
+          $scope.saving = false;
+          $uibModalInstance.close(r);
+        });
+      }
+    };
+}])
+.controller('modalobjetosDeleteController',
+  ['$scope', '$uibModalInstance', 'item',
+  function ($scope, $uibModalInstance, item) {
+    $scope.item = item;
+    $scope.ok = function () {
+      $uibModalInstance.close($scope.item);
+    };
+    $scope.cancel = function () {
+       $uibModalInstance.dismiss('cancel');
+     };
+}])
+.config(function ($routeProvider) {
+  $routeProvider
+    .when('/objetos', {
+      templateUrl: '/templates/objetos/index.html',
+      controller: 'objetosController',
+      access: {
+        restricted: true,
+       rol: 1
+      }
+    });
+ })
+
+
+
+
 .config(function ($routeProvider) {
   $routeProvider
     .when('/bus', {
