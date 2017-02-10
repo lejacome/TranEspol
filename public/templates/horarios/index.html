@@ -1,6 +1,6 @@
 <div class="container-fluid">
    <div class="row div-padding">
-     
+
      <div  class="alert alert-{{alert}}" ng-show="msjAlert">{{message}}</div>
      <div id="mensaje" class="alert alert-error" style="display:none">Elija una Fecha</div>
    </div>
@@ -9,9 +9,9 @@
           <label class="bold col-sm-1">FECHA</label>
           <input id="fecha"  autofocus required name="fecha" type="date" class= "col-sm-2 col-md-offset-1">
           <button id= "obtener" class="form-group col-sm-2 col-md-offset-1 btn btn-default "><i class="fa fa-plus"></i>Obtener Horario</button>
-
         </div>
      </div>
+     <button id = "btn_generar" class="btn btn-default "><i class="fa fa-plus"></i>Generar</button>
     <tr>
     <div id="contenedor" class="container" style="visibility: hidden">
       <ul class="nav nav-tabs">
@@ -31,7 +31,7 @@
               <tr>
                  <td  at-sortable at-title="BUS" width="150" >{{item.bus.ndisco}} {{item.bus.placa}} </td>
                  <td  at-sortable at-title="CONDUCTORS" width="150" > {{item.conductors.nombre}} </td>
-                 <td  at-sortable at-title="RUTAS" width="150" >{{item.rutas.tipo}} {{item.rutas.nombre}} </td>           
+                 <td  at-sortable at-title="RUTAS" width="150" >{{item.rutas.tipo}} {{item.rutas.nombre}} </td>
                  <td  at-title="Acción" width="250"><button type="button" class="btn btn-default" ng-click="open(item)"><i class="fa fa-pencil-square-o"></i></button><button type="button" class="btn btn-default" ng-click="openDelete(item)"><i class="fa fa-trash-o"></i></button></td>
               </tr>
             </tbody>
@@ -40,7 +40,7 @@
           <div class="col-md-6 col-md-offset-3" ><at-pagination ng-hide="preloader" at-list="horariosList" at-config="configTable"></at-pagination></div>
           <div class="row col-lg-offset-6 col-md-offset-6 col-xs-offset-6" ng-hide="!preloader"><i class="fa fa-spinner fa-spin fa-5x position-spinner"></i></div>
         </div>
-        
+
         <div id="martes" class="tab-pane fade martes">
           <input id="searchBarMartes" ng-model="searchText2.fecha" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1" style="visibility: hidden">
           <table ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="horariosList | filter:searchText2" at-config="configTable">
@@ -49,7 +49,7 @@
               <tr>
                  <td  at-sortable at-title="BUS" width="150" >{{item.bus.ndisco}} {{item.bus.marca}} {{item.bus.placa}} {{item.bus.modelo}} {{item.bus.csentados}} {{item.bus.cparados}} </td>
                  <td  at-sortable at-title="CONDUCTORS" width="150" >{{item.conductors.tipo}} {{item.conductors.nombre}} </td>
-                 <td  at-sortable at-title="RUTAS" width="150" >{{item.rutas.tipo}} {{item.rutas.nombre}} </td>           
+                 <td  at-sortable at-title="RUTAS" width="150" >{{item.rutas.tipo}} {{item.rutas.nombre}} </td>
                  <td  at-title="Acción" width="250"><button type="button" class="btn btn-default" ng-click="open(item)"><i class="fa fa-pencil-square-o"></i></button><button type="button" class="btn btn-default" ng-click="openDelete(item)"><i class="fa fa-trash-o"></i></button></td>
 
               </tr>
@@ -59,7 +59,7 @@
           <div class="col-md-6 col-md-offset-3" ><at-pagination ng-hide="preloader" at-list="horariosList" at-config="configTable"></at-pagination></div>
           <div class="row col-lg-offset-6 col-md-offset-6 col-xs-offset-6" ng-hide="!preloader"><i class="fa fa-spinner fa-spin fa-5x position-spinner"></i></div>
         </div>
-        
+
         <div id="miercoles" class="tab-pane fade miercoles">
          <input id="searchBarMiercoles" ng-model="searchText3.fecha" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1" style="visibility: hidden">
           <table ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="horariosList | filter:searchText3" at-config="configTable">
@@ -78,7 +78,7 @@
            <div class="col-md-6 col-md-offset-3" ><at-pagination ng-hide="preloader" at-list="horariosList" at-config="configTable"></at-pagination></div>
           <div class="row col-lg-offset-6 col-md-offset-6 col-xs-offset-6" ng-hide="!preloader"><i class="fa fa-spinner fa-spin fa-5x position-spinner"></i></div>
         </div>
-       
+
         <div id="jueves" class="tab-pane fade jueves">
          <input id="searchBarJueves" ng-model="searchText4.fecha" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1" style="visibility: hidden">
           <table ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="horariosList | filter:searchText4" at-config="configTable">
@@ -87,7 +87,7 @@
               <tr>
                  <td  at-sortable at-title="BUS" width="150" >{{item.bus.ndisco}} {{item.bus.marca}} {{item.bus.placa}} {{item.bus.modelo}} {{item.bus.csentados}} {{item.bus.cparados}} </td>
                  <td  at-sortable at-title="CONDUCTORS" width="150" >{{item.conductors.tipo}} {{item.conductors.nombre}} </td>
-                 <td  at-sortable at-title="RUTAS" width="150" >{{item.rutas.tipo}} {{item.rutas.nombre}} </td>           
+                 <td  at-sortable at-title="RUTAS" width="150" >{{item.rutas.tipo}} {{item.rutas.nombre}} </td>
                  <td  at-title="Acción" width="250"><button type="button" class="btn btn-default" ng-click="open(item)"><i class="fa fa-pencil-square-o"></i></button><button type="button" class="btn btn-default" ng-click="openDelete(item)"><i class="fa fa-trash-o"></i></button></td>
 
               </tr>
@@ -97,7 +97,7 @@
            <div class="col-md-6 col-md-offset-3" ><at-pagination ng-hide="preloader" at-list="horariosList" at-config="configTable"></at-pagination></div>
           <div class="row col-lg-offset-6 col-md-offset-6 col-xs-offset-6" ng-hide="!preloader"><i class="fa fa-spinner fa-spin fa-5x position-spinner"></i></div>
         </div>
-        
+
         <div id="viernes" class="tab-pane fade viernes">
          <input id="searchBarViernes" ng-model="searchText5.fecha" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1" style="visibility: hidden">
           <table ng-hide="preloader" class="table table-bordered table-hover table-striped" at-table at-paginated at-list="horariosList | filter:searchText5" at-config="configTable">
@@ -106,7 +106,7 @@
               <tr>
                  <td  at-sortable at-title="BUS" width="150" >{{item.bus.ndisco}} {{item.bus.marca}} {{item.bus.placa}} {{item.bus.modelo}} {{item.bus.csentados}} {{item.bus.cparados}} </td>
                  <td  at-sortable at-title="CONDUCTORS" width="150" >{{item.conductors.tipo}} {{item.conductors.nombre}} </td>
-                 <td  at-sortable at-title="RUTAS" width="150" >{{item.rutas.tipo}} {{item.rutas.nombre}} </td>           
+                 <td  at-sortable at-title="RUTAS" width="150" >{{item.rutas.tipo}} {{item.rutas.nombre}} </td>
                  <td  at-title="Acción" width="250"><button type="button" class="btn btn-default" ng-click="open(item)"><i class="fa fa-pencil-square-o"></i></button><button type="button" class="btn btn-default" ng-click="openDelete(item)"><i class="fa fa-trash-o"></i></button></td>
 
               </tr>
@@ -120,7 +120,27 @@
     </div>
 
 </div>
+<script src='bower_components/pdfmake/build/pdfmake.js'></script>
+<script src='bower_components/pdfmake/build/vfs_fonts.js'></script>
 <script type="text/javascript">
+
+var docDefinition = {
+ content: [
+   {
+     table: {
+       // headers are automatically repeated if the table spans over multiple pages
+       // you can declare how many rows should be treated as headers
+       headerRows: 1,
+       widths: [ '*', 'auto', 100, '*' ],
+
+       body: [
+         [ 'Bus', 'Nombre', 'Fecha']
+       ]
+     }
+   }
+ ]
+};
+
   $( "#obtener" ).click(function() {
     var fecha= $("#fecha").val();
     if (fecha!=""){
@@ -139,6 +159,41 @@
     }else{
       $("#mensaje").css("display","block");
     }
+  });
+
+  $("#btn_generar").click(function(){
+    var form = new FormData();
+    form.append("Username", "administrator");
+    form.append("Password", "password");
+
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "http://localhost:4000/api/horarios",
+      "method": "GET",
+      "headers": {
+        "cache-control": "no-cache",
+        "postman-token": "9fba176a-92af-48bd-ea33-438b943f8383"
+      },
+      "processData": false,
+      "contentType": false,
+      "mimeType": "multipart/form-data",
+      "data": form
+    }
+
+    $.ajax(settings).done(function (response) {
+      var arr = [];
+      var resp = JSON.parse(response);
+
+      for (i = 0; i < resp.length; i++) {
+        arr.push(resp[i].bus);
+        arr.push(resp[i].conductors.nombre);
+        arr.push(resp[i].fecha);
+        docDefinition.content[0].table.body.push(arr);
+        arr = [];
+      }
+    });
+      pdfMake.createPdf(docDefinition).download('planificacion.pdf');
   });
 
   function cambio(dateObj) {

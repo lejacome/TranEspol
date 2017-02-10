@@ -78,7 +78,7 @@
 			 arrayNoLoginRoutes = loginAccessRoutes.noLoginRoutes.split('|');
 			 stringNoLoginRoutes = stringRequest(arrayNoLoginRoutes);
 			 isValid = 0;
-			 if (req.session.rol || req.url == '/setup/setValues' || req.url == '/setup/layouts' || req.url == '/setup/home' || req.url == '/api/menu' || req.url == '/api/logout' || req.url == '/' || req.url == '/api/rutas:GET' || req.url == '/api/login' || req.url == '/cookie' || eval(stringNoLoginRoutes)) {
+			 if (req.session.rol || req.url == '/setup/setValues' || req.url == '/setup/layouts' || req.url == '/setup/home' || req.url == '/api/menu' || req.url == '/api/logout'|| req.url == '/api/objetos' || req.url == '/api/comentarios' || req.url == '/' || req.url == '/api/rutas:GET' || req.url == '/api/login' || req.url == '/cookie' || eval(stringNoLoginRoutes)) {
 			 		 isValid = 0;
 			 }else{
 			 		 isValid++;

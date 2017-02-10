@@ -40,7 +40,6 @@
   }
 
   $.ajax(settings).done(function (response) {
-    console.log(response);
     response.forEach(function(item){
         if(item.tipo.toLowerCase()=="entrada"){
           opt = document.createElement('option');
