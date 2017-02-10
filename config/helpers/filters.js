@@ -5,72 +5,72 @@
 			 	if (rol >= 5) {
 			 		return callback(true);
 			 	}else{
-			 		return callback(false,'Sorry you do not have access to this route');	
+			 		return callback(false,'Sorry you do not have access to this route');
 			 	}
 			 }else{
-			 		return callback(false,'Sorry you do not have access to this route');	
-			 }	  		
+			 		return callback(false,'Sorry you do not have access to this route');
+			 }
 	};
 	filters.admin = function(rol, callback){
 			 if (rol) {
 			 	if (rol >= 4) {
 			 		return callback(true);
 			 	}else{
-			 		return callback(false,'Sorry you do not have access to this route');	
+			 		return callback(false,'Sorry you do not have access to this route');
 			 	}
 			 }else{
-			 		return callback(false,'Sorry you do not have access to this route');	
-			 }	  		
+			 		return callback(false,'Sorry you do not have access to this route');
+			 }
 	};
 	filters.coordinator = function(rol, callback){
 			 if (rol) {
 			 	if (rol >= 3) {
 			 		return callback(true);
 			 	}else{
-			 		return callback(false,'Sorry you do not have access to this route');	
+			 		return callback(false,'Sorry you do not have access to this route');
 			 	}
 			 }else{
-			 		return callback(false,'Sorry you do not have access to this route');	
-			 }	  		
+			 		return callback(false,'Sorry you do not have access to this route');
+			 }
 	};
 	filters.edit = function(rol, callback){
 			 if (rol) {
 			 	if (rol >= 2) {
 			 		return callback(true);
 			 	}else{
-			 		return callback(false,'Sorry you do not have access to this route');	
+			 		return callback(false,'Sorry you do not have access to this route');
 			 	}
 			 }else{
-			 		return callback(false,'Sorry you do not have access to this route');	
-			 }	  		
+			 		return callback(false,'Sorry you do not have access to this route');
+			 }
 	};
 	filters.reader = function(rol, callback){
 			 if (rol) {
 			 	if (rol >= 1) {
 			 		return callback(true);
 			 	}else{
-			 		return callback(false,'Sorry you do not have access to this route');	
+			 		return callback(false,'Sorry you do not have access to this route');
 			 	}
 			 }else{
-			 		return callback(false,'Sorry you do not have access to this route');	
-			 }	  		
+			 		return callback(false,'Sorry you do not have access to this route');
+			 }
 	};
 
 	var stringRequest = function(arrayRoutes){
-		 string = ''; 
+		 string = '';
 		 for(var i in arrayRoutes){
 		 	 pos = arrayRoutes[i].indexOf(":");
 		 	 if(pos != -1 ){
 		 	 	 arrayMethods = arrayRoutes[i].split(':');
-		 	 	 string += "(req.url == '"+arrayMethods[0]+"' && req.method == '"; 	
+		 	 	 string += "(req.url == '"+arrayMethods[0]+"' && req.method == '";
 			 	 string += arrayMethods[1];
 			 	 string += "') || ";
 		 	 }else{
 		 	 	string += "req.url == '"+arrayRoutes[i]+"' || ";
 		 	 }
-		 	 
+
 		 }
-		 return string.slice(0,-3); 
+		 return string.slice(0,-3);
 
 	}
 
@@ -78,10 +78,10 @@
 			 arrayNoLoginRoutes = loginAccessRoutes.noLoginRoutes.split('|');
 			 stringNoLoginRoutes = stringRequest(arrayNoLoginRoutes);
 			 isValid = 0;
-			 if (req.session.rol || req.url == '/setup/setValues' || req.url == '/setup/layouts' || req.url == '/setup/home' || req.url == '/api/menu' || req.url == '/api/logout' || req.url == '/' || req.url == '/api/login' || req.url == '/cookie' || eval(stringNoLoginRoutes)) {
-			 		 isValid = 0;	 
+			 if (req.session.rol || req.url == '/setup/setValues' || req.url == '/setup/layouts' || req.url == '/setup/home' || req.url == '/api/menu' || req.url == '/api/logout' || req.url == '/' || req.url == '/api/rutas:GET' || req.url == '/api/login' || req.url == '/cookie' || eval(stringNoLoginRoutes)) {
+			 		 isValid = 0;
 			 }else{
-			 		 isValid++;	
+			 		 isValid++;
 			 }
 			 var msg = 'Sorry you do not have access to this route please login!';
 			 var isValidFilter = 0;
@@ -128,12 +128,12 @@
 			 		 isValidFilter++;
 			 	}
 			 }
-			 
+
 			 if(isValid == 0 && isValidFilter == 0){
 			 	return callback(true);
-			 }else{ 
+			 }else{
 			 	return callback(false,msg);
-			 }		
+			 }
 	};
 
 })(typeof exports === "undefined" ? filters = {} : exports);

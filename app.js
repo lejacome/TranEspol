@@ -70,7 +70,13 @@ var exampleMssql = require('./routes/exampleMssql');
 // view engine setup
 app.set('views', path.join(__dirname, '/'));
 app.set('view engine', 'ejs');
-
+//Mapas Estudiantes
+app.get('/rutaEstudianteEntrada', function(req, res) {
+  res.render('views/rutaEstudianteEntrada');
+});
+app.get('/rutaEstudianteSalida', function(req, res) {
+  res.render('views/rutaEstudianteSalida');
+});
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(multipart());
@@ -93,13 +99,7 @@ app.use(require('express-session')({
             next();
       });
     });
-//Mapas Estudiantes
-app.get('/rutaEstudianteEntrada', function(req, res) {
-  res.render('views/rutaEstudianteEntrada');
-});
-app.get('/rutaEstudianteSalida', function(req, res) {
-  res.render('views/rutaEstudianteSalida');
-});
+
 //Call cookie
 
 app.get('/cookie', function(req, res) {
