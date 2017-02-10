@@ -29,6 +29,8 @@ mongoose.connect("mongodb://admin:1234@ds031641.mlab.com:31641/transespol_db",fu
 
 
 //MODELS CRUD
+var model_comentarios = require('./models/comentarios.js');
+var model_objetos = require('./models/objetos.js');
 var model_horarios = require('./models/horarios.js');
 var model_posicionbus = require('./models/posicionbus.js');
 var model_rutas = require('./models/rutas.js');
@@ -44,6 +46,8 @@ var ModelRelationship = require('./config/setup/models/modelRelationship.js');
 var ModelSchema = require('./config/setup/models/modelSchema.js');
 var ModelGeneralConfig = require('./config/setup/models/modelGeneralConfig.js');
 //ROUTES CRUD
+var route_comentarios = require('./routes/comentarios');
+var route_objetos = require('./routes/objetos');
 var route_horarios = require('./routes/horarios');
 var route_posicionbus = require('./routes/posicionbus');
 var route_rutas = require('./routes/rutas');
@@ -132,6 +136,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //API ROUTES CRUD
+app.use('/api',route_comentarios);
+app.use('/api',route_objetos);
 app.use('/api',route_horarios);
 app.use('/api',route_posicionbus);
 app.use('/api',route_rutas);
